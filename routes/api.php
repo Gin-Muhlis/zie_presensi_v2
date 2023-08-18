@@ -40,4 +40,15 @@ Route::prefix('student')
         Route::get('/data/absence', [StudentController::class, 'studentAbsenceData']);
     });
 });
+
+Route::prefix('teacher')
+->group(function() {
+    Route::post('/register', [AuthController::class, 'teacherRegister']);
+    Route::post('/login', [AuthController::class, 'teacherLogin']);
+
+    Route::middleware('auth:sanctum')
+    ->group(function () {
+        Route::get('/profile', [TeacherController::class, 'profile']);
+    });
+});
     

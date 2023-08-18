@@ -8,11 +8,12 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StudentStoreRequest;
 use App\Models\Student;
+use App\Models\Teacher;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
@@ -26,6 +27,8 @@ class AuthController extends Controller
     {
 
         try {
+            DB::beginTransaction();
+
             $validator = $this->studentValidator($request->all());
 
             if ($validator->fails()) {
@@ -44,11 +47,14 @@ class AuthController extends Controller
 
             $student->assignRole('siswa');
 
+            DB::commit();
+
             return response()->json([
                 'status' => 200,
                 'message' => 'Siswa Berhasil Didaftarkan'
             ]);
         } catch (Exception $e) {
+            DB::rollBack();
             return response()->json([
                 'status' => 500,
                 'message' => 'Terjadi kesalahan dengan data yang dikirim!',
@@ -129,6 +135,109 @@ class AuthController extends Controller
             'password.max' => 'Kolom password maksimal 255 karakter',
             'class_student_id.required' => 'Kolom Kelas harus diisi',
             'class_student_id.exists' => 'Kelas tidak valid',
+        ]);
+    }
+
+    public function teacherRegister(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $validator = $this->teacherValidator($request->all());
+
+            if ($validator->fails()) {
+                return response()->json([
+                   'status' => 422,
+                   'message' => 'Terjadi kesalahan dengan data yang dikirim!',
+                    'error' => $validator->errors()
+                ], 422);
+            }
+
+            $validated = $validator->validate();
+
+            $validated['password'] = Hash::make($validated['password']);
+
+            $teacher = Teacher::create($validated);
+
+            $teacher->assignRole('guru');
+
+            DB::commit();
+
+            return response()->json([
+               'status' => 200,
+               'message' => 'Guru Berhasil Didaftarkan'
+            ]);
+        } catch (Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'status' => 500,
+                'message' => 'Terjadi Kesalahan!',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function teacherLogin(Request $request) {
+        try {
+            $validator = Validator::make($request->all(), [
+                'email' => 'required|email',
+                'password' => 'required',
+            ], [
+                'email.required' => 'Email tidak boleh kosong',
+                'email.email' => 'Email tidak valid',
+                'password.required' => 'Password tidak boleh kosong',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => 422,
+                    'message' => 'Terjadi kesalahan dengan data yang dikirim!',
+                    'errors' => $validator->errors()
+                ]);
+            }
+
+            $credentials = $validator->validate();
+
+            if (!Auth::guard('teacher_api')->attempt($credentials)) {
+                return response()->json([
+                    'status' => 404,
+                    'message' => 'Email atau Password salah'
+                ], 404);
+            }
+
+            $teacher = Teacher::whereEmail($request->email)->firstOrFail();
+
+            $token = $teacher->createToken('teacher-auth-token');
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Login Berhasil',
+                'token' => $token->plainTextToken,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 500,
+                'message' => 'Terjadi Kesalahan!',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    private function teacherValidator($data) {
+        return Validator::make($data, [
+            'email' => ['required', 'unique:teachers,email', 'email'],
+            'name' => ['required', 'max:255', 'string'],
+            'gender' => ['required', 'in:laki-laki,perempuan,lainnya'],
+            'password' => ['required'],
+        ], [
+            'email.required' => 'Kolom email harus diisi',
+            'email.unique' => 'Email sudah terdaftar',
+            'email.email' => 'Email tidak valid',
+            'name.required' => 'Kolom nama harus diisi',
+            'name.max' => 'Kolom nama maksimal 255 karakter',
+            'name.string' => 'Kolom nama harus berupa string',
+            'gender.required' => 'Kolom gender harus diisi',
+            'gender.in' => 'Kolom gender harus berupa laki-laki,perempuan,lainnya',
+            'password.required' => 'Kolom password harus diisi',
         ]);
     }
 }

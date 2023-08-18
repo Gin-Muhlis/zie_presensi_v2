@@ -2,16 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Student;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\StudentResource;
-use App\Http\Resources\StudentCollection;
-use App\Http\Requests\StudentStoreRequest;
-use App\Http\Requests\StudentUpdateRequest;
-use App\Http\Resources\StudentAbsenceCollection;
-use App\Http\Resources\StudentAbsenceResource;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;

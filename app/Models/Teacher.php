@@ -2,14 +2,24 @@
 
 namespace App\Models;
 
+use Laravel\Sanctum\HasApiTokens;
 use App\Models\Scopes\Searchable;
-use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Teacher extends Model
+class Teacher extends Authenticatable
 {
+    use HasRoles;
+    use Notifiable;
     use HasFactory;
     use Searchable;
+    use HasApiTokens;
+
+    protected $guard_name = 'web';
+
+    protected $guard = 'teacher_api';
 
     protected $fillable = ['email', 'name', 'gender', 'password'];
 
