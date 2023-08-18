@@ -23,7 +23,8 @@ class StudentAbsenceFactory extends Factory
     public function definition(): array
     {
         return [
-            'time' => $this->faker->dateTime(),
+            'date' => $this->faker->date(),
+            'time' => $this->faker->time(),
             'student_id' => \App\Models\Student::factory(),
             'teacher_id' => \App\Models\Teacher::factory(),
             'presence_id' => \App\Models\Presence::factory(),

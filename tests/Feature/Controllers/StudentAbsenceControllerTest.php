@@ -119,7 +119,8 @@ class StudentAbsenceControllerTest extends TestCase
         $presence = Presence::factory()->create();
 
         $data = [
-            'time' => $this->faker->dateTime(),
+            'date' => $this->faker->date(),
+            'time' => $this->faker->time(),
             'student_id' => $student->id,
             'teacher_id' => $teacher->id,
             'presence_id' => $presence->id,

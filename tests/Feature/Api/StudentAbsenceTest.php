@@ -42,7 +42,7 @@ class StudentAbsenceTest extends TestCase
 
         $response = $this->getJson(route('api.student-absences.index'));
 
-        $response->assertOk()->assertSee($studentAbsences[0]->id);
+        $response->assertOk()->assertSee($studentAbsences[0]->date);
     }
 
     /**
@@ -73,7 +73,8 @@ class StudentAbsenceTest extends TestCase
         $presence = Presence::factory()->create();
 
         $data = [
-            'time' => $this->faker->dateTime(),
+            'date' => $this->faker->date(),
+            'time' => $this->faker->time(),
             'student_id' => $student->id,
             'teacher_id' => $teacher->id,
             'presence_id' => $presence->id,

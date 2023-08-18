@@ -24,7 +24,7 @@
     <x-inputs.group class="col-sm-12">
         <x-inputs.select name="presence_id" label="Kehadiran" required>
             @php $selected = old('presence_id', ($editing ? $studentAbsence->presence_id : '')) @endphp
-            <option disabled {{ empty($selected) ? 'selected' : '' }}>Sillahkan Pilih Kehadiran</option>
+            <option disabled {{ empty($selected) ? 'selected' : '' }}>Silahkan Pilih Guru</option>
             @foreach($presences as $value => $label)
             <option value="{{ $value }}" {{ $selected == $value ? 'selected' : '' }} >{{ $label }}</option>
             @endforeach
@@ -32,12 +32,23 @@
     </x-inputs.group>
 
     <x-inputs.group class="col-sm-12">
-        <x-inputs.datetime
-            name="time"
-            label="Jam"
-            value="{{ old('time', ($editing ? optional($studentAbsence->time)->format('Y-m-d\TH:i:s') : '')) }}"
+        <x-inputs.date
+            name="date"
+            label="Tanggal"
+            value="{{ old('date', ($editing ? optional($studentAbsence->date)->format('Y-m-d') : '')) }}"
             max="255"
             required
-        ></x-inputs.datetime>
+        ></x-inputs.date>
+    </x-inputs.group>
+
+    <x-inputs.group class="col-sm-12">
+        <x-inputs.text
+            name="time"
+            label="Jam"
+            :value="old('time', ($editing ? $studentAbsence->time : ''))"
+            maxlength="255"
+            placeholder="Jam"
+            required
+        ></x-inputs.text>
     </x-inputs.group>
 </div>

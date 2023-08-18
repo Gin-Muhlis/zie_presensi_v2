@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\User;
 use App\Models\Student;
+use App\Models\StudentAbsence;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class StudentPolicy
@@ -26,6 +27,7 @@ class StudentPolicy
         return $user->hasPermissionTo('view students');
     }
 
+    
     /**
      * Determine whether the student can create models.
      */

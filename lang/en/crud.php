@@ -104,6 +104,7 @@ return [
             'student_id' => 'Siswa',
             'teacher_id' => 'Guru',
             'presence_id' => 'Kehadiran',
+            'date' => 'Tanggal',
             'time' => 'Jam',
         ],
     ],

@@ -35,7 +35,9 @@ Route::prefix('student')
 
     Route::middleware('auth:sanctum')
     ->group(function () {
-        
+        Route::get('/profile', [StudentController::class, 'profile']);
+        Route::post('/absence', [StudentController::class, 'studentAbsence']);
+        Route::get('/data/absence', [StudentController::class, 'studentAbsenceData']);
     });
 });
     

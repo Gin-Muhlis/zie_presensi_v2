@@ -1,3 +1,10 @@
+<?php 
+
+require_once app_path() . '/helper/helper.php';
+
+?>
+
+
 @extends('layouts.app')
 
 @section('content')
@@ -59,6 +66,9 @@
                                 @lang('crud.kehadiran_siswa.inputs.presence_id')
                             </th>
                             <th class="text-left">
+                                @lang('crud.kehadiran_siswa.inputs.date')
+                            </th>
+                            <th class="text-left">
                                 @lang('crud.kehadiran_siswa.inputs.time')
                             </th>
                             <th class="text-center">
@@ -81,6 +91,7 @@
                                 {{ optional($studentAbsence->presence)->name ??
                                 '-' }}
                             </td>
+                            <td>{{ $studentAbsence->date ? generateDate($studentAbsence->date->toDateString()) : '-' }}</td>
                             <td>{{ $studentAbsence->time ?? '-' }}</td>
                             <td class="text-center" style="width: 134px;">
                                 <div
@@ -130,7 +141,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="5">
+                            <td colspan="6">
                                 @lang('crud.common.no_items_found')
                             </td>
                         </tr>
@@ -138,7 +149,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="5">
+                            <td colspan="6">
                                 {!! $studentAbsences->render() !!}
                             </td>
                         </tr>

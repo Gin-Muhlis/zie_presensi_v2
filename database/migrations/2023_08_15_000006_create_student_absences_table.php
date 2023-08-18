@@ -15,7 +15,8 @@ return new class extends Migration {
             $table->unsignedBigInteger('student_id');
             $table->unsignedBigInteger('teacher_id');
             $table->unsignedBigInteger('presence_id');
-            $table->dateTime('time');
+            $table->date('date');
+            $table->time('time');
 
             $table->timestamps();
         });

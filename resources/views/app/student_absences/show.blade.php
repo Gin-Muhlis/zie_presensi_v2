@@ -34,6 +34,10 @@
                     >
                 </div>
                 <div class="mb-4">
+                    <h5>@lang('crud.kehadiran_siswa.inputs.date')</h5>
+                    <span>{{ $studentAbsence->date ?? '-' }}</span>
+                </div>
+                <div class="mb-4">
                     <h5>@lang('crud.kehadiran_siswa.inputs.time')</h5>
                     <span>{{ $studentAbsence->time ?? '-' }}</span>
                 </div>

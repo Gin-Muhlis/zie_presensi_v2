@@ -36,7 +36,8 @@ class PresenceStudentAbsencesController extends Controller
         $validated = $request->validate([
             'student_id' => ['required', 'exists:students,id'],
             'teacher_id' => ['required', 'exists:teachers,id'],
-            'time' => ['required', 'date'],
+            'date' => ['required', 'date'],
+            'time' => ['required', 'date_format:H:i:s'],
         ]);
 
         $studentAbsence = $presence->studentAbsences()->create($validated);

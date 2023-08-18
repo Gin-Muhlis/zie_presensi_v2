@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Student;
 use App\Models\User;
 use App\Models\StudentAbsence;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -26,10 +27,20 @@ class StudentAbsencePolicy
         return $user->hasPermissionTo('view studentabsences');
     }
 
+    public function studentView(Student $user): bool
+    {
+        return $user->hasPermissionTo('view studentabsences');
+    }
+
     /**
      * Determine whether the studentAbsence can create models.
      */
     public function create(User $user): bool
+    {
+        return $user->hasPermissionTo('create studentabsences');
+    }
+
+    public function studentCreate(Student $user): bool
     {
         return $user->hasPermissionTo('create studentabsences');
     }

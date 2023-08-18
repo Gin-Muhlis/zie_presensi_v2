@@ -44,7 +44,7 @@
                             <li class="nav-item">
                                 <a href="{{ route('presences.index') }}" class="nav-link">
                                     <i class="nav-icon icon ion-md-radio-button-off"></i>
-                                    <p>Kehadiran</p>
+                                    <p>Jenis Kehadiran</p>
                                 </a>
                             </li>
                             @endcan

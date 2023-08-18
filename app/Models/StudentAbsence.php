@@ -11,14 +11,20 @@ class StudentAbsence extends Model
     use HasFactory;
     use Searchable;
 
-    protected $fillable = ['student_id', 'teacher_id', 'presence_id', 'time'];
+    protected $fillable = [
+        'student_id',
+        'teacher_id',
+        'presence_id',
+        'date',
+        'time',
+    ];
 
     protected $searchableFields = ['*'];
 
     protected $table = 'student_absences';
 
     protected $casts = [
-        'time' => 'datetime',
+        'date' => 'date',
     ];
 
     public function student()

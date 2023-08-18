@@ -44,7 +44,7 @@ class StudentStudentAbsencesTest extends TestCase
             route('api.students.student-absences.index', $student)
         );
 
-        $response->assertOk()->assertSee($studentAbsences[0]->id);
+        $response->assertOk()->assertSee($studentAbsences[0]->date);
     }
 
     /**

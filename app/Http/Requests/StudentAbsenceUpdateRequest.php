@@ -23,7 +23,8 @@ class StudentAbsenceUpdateRequest extends FormRequest
             'student_id' => ['required', 'exists:students,id'],
             'teacher_id' => ['required', 'exists:teachers,id'],
             'presence_id' => ['required', 'exists:presences,id'],
-            'time' => ['required', 'date'],
+            'date' => ['required', 'date'],
+            'time' => ['required', 'date_format:H:i:s'],
         ];
     }
 }
