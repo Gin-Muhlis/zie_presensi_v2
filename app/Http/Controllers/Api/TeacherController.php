@@ -8,7 +8,6 @@ use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\TeacherResource;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\TeacherCollection;
 use App\Http\Requests\TeacherStoreRequest;
 use App\Http\Requests\TeacherUpdateRequest;
@@ -36,10 +35,6 @@ class TeacherController extends Controller
 
         $validated['password'] = Hash::make($validated['password']);
 
-        if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('public');
-        }
-
         $teacher = Teacher::create($validated);
 
         return new TeacherResource($teacher);
@@ -66,14 +61,6 @@ class TeacherController extends Controller
             $validated['password'] = Hash::make($validated['password']);
         }
 
-        if ($request->hasFile('image')) {
-            if ($teacher->image) {
-                Storage::delete($teacher->image);
-            }
-
-            $validated['image'] = $request->file('image')->store('public');
-        }
-
         $teacher->update($validated);
 
         return new TeacherResource($teacher);
@@ -82,10 +69,6 @@ class TeacherController extends Controller
     public function destroy(Request $request, Teacher $teacher): Response
     {
         $this->authorize('delete', $teacher);
-
-        if ($teacher->image) {
-            Storage::delete($teacher->image);
-        }
 
         $teacher->delete();
 

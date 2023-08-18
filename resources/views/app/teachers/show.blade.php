@@ -21,13 +21,6 @@
                     <span>{{ $teacher->name ?? '-' }}</span>
                 </div>
                 <div class="mb-4">
-                    <h5>@lang('crud.guru.inputs.image')</h5>
-                    <x-partials.thumbnail
-                        src="{{ $teacher->image ? \Storage::url($teacher->image) : '' }}"
-                        size="150"
-                    />
-                </div>
-                <div class="mb-4">
                     <h5>@lang('crud.guru.inputs.gender')</h5>
                     <span>{{ $teacher->gender ?? '-' }}</span>
                 </div>

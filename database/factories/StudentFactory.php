@@ -26,7 +26,7 @@ class StudentFactory extends Factory
             'name' => $this->faker->text(255),
             'nis' => $this->faker->text(9),
             'gender' => \Arr::random(['male', 'female', 'other']),
-            'passsword' => $this->faker->text(255),
+            'password' => $this->faker->text(255),
             'class_student_id' => \App\Models\ClassStudent::factory(),
         ];
     }

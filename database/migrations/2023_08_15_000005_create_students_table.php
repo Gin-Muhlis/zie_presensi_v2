@@ -14,9 +14,8 @@ return new class extends Migration {
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('nis', 9);
-            $table->string('image')->nullable();
             $table->enum('gender', ['laki-laki', 'perempuan', 'lainnya']);
-            $table->string('passsword');
+            $table->string('password');
             $table->unsignedBigInteger('class_student_id');
 
             $table->timestamps();

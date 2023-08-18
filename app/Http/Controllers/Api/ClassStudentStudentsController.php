@@ -36,14 +36,9 @@ class ClassStudentStudentsController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'max:255', 'string'],
             'nis' => ['required', 'max:9', 'string'],
-            'image' => ['nullable', 'image', 'max:1024'],
             'gender' => ['required', 'in:laki-laki,perempuan,lainnya'],
-            'passsword' => ['required', 'max:255', 'string'],
+            'password' => ['required'],
         ]);
-
-        if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('public');
-        }
 
         $student = $classStudent->students()->create($validated);
 

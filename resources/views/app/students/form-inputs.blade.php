@@ -24,47 +24,6 @@
     </x-inputs.group>
 
     <x-inputs.group class="col-sm-12">
-        <div
-            x-data="imageViewer('{{ $editing && $student->image ? \Storage::url($student->image) : '' }}')"
-        >
-            <x-inputs.partials.label
-                name="image"
-                label="Gambar Profil"
-            ></x-inputs.partials.label
-            ><br />
-
-            <!-- Show the image -->
-            <template x-if="imageUrl">
-                <img
-                    :src="imageUrl"
-                    class="object-cover rounded border border-gray-200"
-                    style="width: 100px; height: 100px;"
-                />
-            </template>
-
-            <!-- Show the gray box when image is not available -->
-            <template x-if="!imageUrl">
-                <div
-                    class="border rounded border-gray-200 bg-gray-100"
-                    style="width: 100px; height: 100px;"
-                ></div>
-            </template>
-
-            <div class="mt-2">
-                <input
-                    type="file"
-                    name="image"
-                    id="image"
-                    @change="fileChosen"
-                />
-            </div>
-
-            @error('image') @include('components.inputs.partials.error')
-            @enderror
-        </div>
-    </x-inputs.group>
-
-    <x-inputs.group class="col-sm-12">
         <x-inputs.select name="gender" label="Gender">
             @php $selected = old('gender', ($editing ? $student->gender : '')) @endphp
             <option value="laki-laki" {{ $selected == 'laki-laki' ? 'selected' : '' }} >Laki laki</option>
@@ -75,12 +34,12 @@
 
     <x-inputs.group class="col-sm-12">
         <x-inputs.text
-            name="passsword"
-            label="Passsword"
-            :value="old('passsword', ($editing ? $student->passsword : ''))"
+            name="password"
+            label="Password"
+            :value="old('password', ($editing ? $student->password : ''))"
             maxlength="255"
-            placeholder="Passsword"
-            required
+            placeholder="Password"
+            :required="!$editing"
         ></x-inputs.text>
     </x-inputs.group>
 

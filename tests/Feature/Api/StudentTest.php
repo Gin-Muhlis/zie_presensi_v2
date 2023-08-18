@@ -72,7 +72,7 @@ class StudentTest extends TestCase
             'name' => $this->faker->text(255),
             'nis' => $this->faker->text(9),
             'gender' => \Arr::random(['male', 'female', 'other']),
-            'passsword' => $this->faker->text(255),
+            'password' => \Str::random(5),
             'class_student_id' => $classStudent->id,
         ];
 

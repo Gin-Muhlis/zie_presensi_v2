@@ -54,9 +54,6 @@
                                 @lang('crud.guru.inputs.name')
                             </th>
                             <th class="text-left">
-                                @lang('crud.guru.inputs.image')
-                            </th>
-                            <th class="text-left">
                                 @lang('crud.guru.inputs.gender')
                             </th>
                             <th class="text-center">
@@ -69,11 +66,6 @@
                         <tr>
                             <td>{{ $teacher->email ?? '-' }}</td>
                             <td>{{ $teacher->name ?? '-' }}</td>
-                            <td>
-                                <x-partials.thumbnail
-                                    src="{{ $teacher->image ? \Storage::url($teacher->image) : '' }}"
-                                />
-                            </td>
                             <td>{{ $teacher->gender ?? '-' }}</td>
                             <td class="text-center" style="width: 134px;">
                                 <div
@@ -123,7 +115,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="5">
+                            <td colspan="4">
                                 @lang('crud.common.no_items_found')
                             </td>
                         </tr>
@@ -131,7 +123,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="5">{!! $teachers->render() !!}</td>
+                            <td colspan="4">{!! $teachers->render() !!}</td>
                         </tr>
                     </tfoot>
                 </table>

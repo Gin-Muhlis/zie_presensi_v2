@@ -22,9 +22,8 @@ class StudentUpdateRequest extends FormRequest
         return [
             'name' => ['required', 'max:255', 'string'],
             'nis' => ['required', 'max:9', 'string'],
-            'image' => ['nullable', 'image', 'max:1024'],
             'gender' => ['required', 'in:laki-laki,perempuan,lainnya'],
-            'passsword' => ['required', 'max:255', 'string'],
+            'password' => ['nullable'],
             'class_student_id' => ['required', 'exists:class_students,id'],
         ];
     }

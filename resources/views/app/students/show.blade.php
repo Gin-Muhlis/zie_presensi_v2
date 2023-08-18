@@ -21,19 +21,12 @@
                     <span>{{ $student->nis ?? '-' }}</span>
                 </div>
                 <div class="mb-4">
-                    <h5>@lang('crud.siswa.inputs.image')</h5>
-                    <x-partials.thumbnail
-                        src="{{ $student->image ? \Storage::url($student->image) : '' }}"
-                        size="150"
-                    />
-                </div>
-                <div class="mb-4">
                     <h5>@lang('crud.siswa.inputs.gender')</h5>
                     <span>{{ $student->gender ?? '-' }}</span>
                 </div>
                 <div class="mb-4">
-                    <h5>@lang('crud.siswa.inputs.passsword')</h5>
-                    <span>{{ $student->passsword ?? '-' }}</span>
+                    <h5>@lang('crud.siswa.inputs.password')</h5>
+                    <span>{{ $student->password ?? '-' }}</span>
                 </div>
                 <div class="mb-4">
                     <h5>@lang('crud.siswa.inputs.class_student_id')</h5>

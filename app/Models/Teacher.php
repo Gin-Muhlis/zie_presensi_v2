@@ -11,7 +11,7 @@ class Teacher extends Model
     use HasFactory;
     use Searchable;
 
-    protected $fillable = ['email', 'name', 'image', 'gender', 'password'];
+    protected $fillable = ['email', 'name', 'gender', 'password'];
 
     protected $searchableFields = ['*'];
 

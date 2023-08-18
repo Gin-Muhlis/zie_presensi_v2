@@ -7,7 +7,6 @@ use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\TeacherStoreRequest;
 use App\Http\Requests\TeacherUpdateRequest;
 
@@ -50,10 +49,6 @@ class TeacherController extends Controller
         $validated = $request->validated();
 
         $validated['password'] = Hash::make($validated['password']);
-
-        if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('public');
-        }
 
         $teacher = Teacher::create($validated);
 
@@ -99,14 +94,6 @@ class TeacherController extends Controller
             $validated['password'] = Hash::make($validated['password']);
         }
 
-        if ($request->hasFile('image')) {
-            if ($teacher->image) {
-                Storage::delete($teacher->image);
-            }
-
-            $validated['image'] = $request->file('image')->store('public');
-        }
-
         $teacher->update($validated);
 
         return redirect()
@@ -122,10 +109,6 @@ class TeacherController extends Controller
         Teacher $teacher
     ): RedirectResponse {
         $this->authorize('delete', $teacher);
-
-        if ($teacher->image) {
-            Storage::delete($teacher->image);
-        }
 
         $teacher->delete();
 

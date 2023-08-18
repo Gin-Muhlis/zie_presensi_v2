@@ -54,13 +54,10 @@
                                 @lang('crud.siswa.inputs.nis')
                             </th>
                             <th class="text-left">
-                                @lang('crud.siswa.inputs.image')
-                            </th>
-                            <th class="text-left">
                                 @lang('crud.siswa.inputs.gender')
                             </th>
                             <th class="text-left">
-                                @lang('crud.siswa.inputs.passsword')
+                                @lang('crud.siswa.inputs.password')
                             </th>
                             <th class="text-left">
                                 @lang('crud.siswa.inputs.class_student_id')
@@ -75,13 +72,8 @@
                         <tr>
                             <td>{{ $student->name ?? '-' }}</td>
                             <td>{{ $student->nis ?? '-' }}</td>
-                            <td>
-                                <x-partials.thumbnail
-                                    src="{{ $student->image ? \Storage::url($student->image) : '' }}"
-                                />
-                            </td>
                             <td>{{ $student->gender ?? '-' }}</td>
-                            <td>{{ $student->passsword ?? '-' }}</td>
+                            <td>{{ $student->password ?? '-' }}</td>
                             <td>
                                 {{ optional($student->classStudent)->name ?? '-'
                                 }}
@@ -134,7 +126,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="7">
+                            <td colspan="6">
                                 @lang('crud.common.no_items_found')
                             </td>
                         </tr>
@@ -142,7 +134,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="7">{!! $students->render() !!}</td>
+                            <td colspan="6">{!! $students->render() !!}</td>
                         </tr>
                     </tfoot>
                 </table>

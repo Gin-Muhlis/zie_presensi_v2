@@ -23,7 +23,6 @@ class TeacherStoreRequest extends FormRequest
         return [
             'email' => ['required', 'unique:teachers,email', 'email'],
             'name' => ['required', 'max:255', 'string'],
-            'image' => ['nullable', 'image', 'max:1024'],
             'gender' => ['required', 'in:laki-laki,perempuan,lainnya'],
             'password' => ['required'],
         ];

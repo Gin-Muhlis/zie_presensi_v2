@@ -87,9 +87,8 @@ return [
         'inputs' => [
             'name' => 'Nama',
             'nis' => 'Nis',
-            'image' => 'Gambar Profil',
             'gender' => 'Gender',
-            'passsword' => 'Passsword',
+            'password' => 'Password',
             'class_student_id' => 'Kelas Siswa',
         ],
     ],
@@ -119,7 +118,6 @@ return [
         'inputs' => [
             'email' => 'Email',
             'name' => 'Nama',
-            'image' => 'Gambar Profil',
             'gender' => 'Gender',
             'password' => 'Password',
         ],

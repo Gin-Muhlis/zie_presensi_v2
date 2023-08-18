@@ -7,7 +7,6 @@ use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Models\ClassStudent;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StudentStoreRequest;
 use App\Http\Requests\StudentUpdateRequest;
 
@@ -50,9 +49,6 @@ class StudentController extends Controller
         $this->authorize('create', Student::class);
 
         $validated = $request->validated();
-        if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('public');
-        }
 
         $student = Student::create($validated);
 
@@ -93,13 +89,6 @@ class StudentController extends Controller
         $this->authorize('update', $student);
 
         $validated = $request->validated();
-        if ($request->hasFile('image')) {
-            if ($student->image) {
-                Storage::delete($student->image);
-            }
-
-            $validated['image'] = $request->file('image')->store('public');
-        }
 
         $student->update($validated);
 
@@ -116,10 +105,6 @@ class StudentController extends Controller
         Student $student
     ): RedirectResponse {
         $this->authorize('delete', $student);
-
-        if ($student->image) {
-            Storage::delete($student->image);
-        }
 
         $student->delete();
 

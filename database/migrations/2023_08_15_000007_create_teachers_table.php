@@ -14,7 +14,6 @@ return new class extends Migration {
             $table->bigIncrements('id');
             $table->string('email')->unique();
             $table->string('name');
-            $table->string('image')->nullable();
             $table->enum('gender', ['laki-laki', 'perempuan', 'lainnya']);
             $table->string('password');
 

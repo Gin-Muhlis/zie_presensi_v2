@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\StudentResource;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\StudentCollection;
 use App\Http\Requests\StudentStoreRequest;
 use App\Http\Requests\StudentUpdateRequest;
@@ -32,9 +31,6 @@ class StudentController extends Controller
         $this->authorize('create', Student::class);
 
         $validated = $request->validated();
-        if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('public');
-        }
 
         $student = Student::create($validated);
 
@@ -56,14 +52,6 @@ class StudentController extends Controller
 
         $validated = $request->validated();
 
-        if ($request->hasFile('image')) {
-            if ($student->image) {
-                Storage::delete($student->image);
-            }
-
-            $validated['image'] = $request->file('image')->store('public');
-        }
-
         $student->update($validated);
 
         return new StudentResource($student);
@@ -72,10 +60,6 @@ class StudentController extends Controller
     public function destroy(Request $request, Student $student): Response
     {
         $this->authorize('delete', $student);
-
-        if ($student->image) {
-            Storage::delete($student->image);
-        }
 
         $student->delete();
 
